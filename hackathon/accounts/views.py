@@ -12,13 +12,14 @@ def login_view(request):
         if user is not None:
             print("인증성공")
             login(request, user)
+            return render(request, "accounts/afterlogin.html")
         else:
             print("인증실패")
     return render(request, "accounts/login.html")
 
 def logout_view(request):
     logout(request)
-    return redirect("accounts:login")
+    return redirect("accounts:homepage")
 
 def signup_view(request):
     
@@ -40,7 +41,7 @@ def signup_view(request):
         if password == password2:
             user =  User.objects.create_user(username, email, password)
             user.last_name = lastname
-            user.firstname = firstname
+            user.first_name = firstname
             user.gender = gender
             user.address = address
             user.gender = gender
@@ -60,3 +61,6 @@ def signup_view(request):
 
 def homepage_view(request):
     return render(request, "accounts/homepage.html")
+
+def after_login_view(request):
+    return render(request, "accounts/afterlogin.html")
