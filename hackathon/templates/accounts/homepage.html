@@ -1,0 +1,31 @@
+<!doctype html>
+{% load static %}
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>돌쇠야</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <p>돌쇠야</p>
+        <ul>
+          <li><a href="{% url 'accounts:homepage'%}">홈</a></li>
+          <li><a href="{% url 'accounts:login'%}">로그인</a></li>
+          <li><a href="{% url 'accounts:signup'%}">회원가입</a></li>
+        </ul>
+      </header>
+      <section>
+        <p>Cover your page.</p>
+        <p>Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+        <a href="#">게시판</a>
+      </section>
+      <footer>
+        Cover template for <a href="https://twitter.com/mdo">Bootstrap, by <a href="https://twitter.com/mdo">@mdo.
+      </footer>
+    </div>
+    
+  </body>
+</html>

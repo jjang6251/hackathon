@@ -1,0 +1,33 @@
+회원가입
+<br>
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>아이디</p>
+    <input name="username" type="text">
+    <p>비밀번호</p>
+    <input name="password" type="password">
+    <p>비밀번호 확인</p>
+    <input name="password2" type="password">
+    <p>성</p>
+    <input name="firstname" type="text">
+    <p>이름</p>
+    <input name="lastname" type="text">
+    <p>이메일</p>
+    <input name="email" type="text">
+    <p>성별</p>
+    <input name="gender" type="text">
+    <p>주소</p>
+    <input name="address" type="text">
+    <p>주민등록번호</p>
+    <input name="resi_num" type="text">
+    <p>전화번호</p>
+    <input name="ph_num" type="text">
+    <p>닉네임</p>
+    <input name="nickname" type="text">
+    <p>주민등록증 사진 첨부</p>
+    <input name="resi_img" type="file">
+    <p>현재 사진 첨부</p>
+    <input name="present_img" type="file">
+    <input type="submit" value = "회원가입">
+</form>
