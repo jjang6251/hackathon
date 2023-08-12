@@ -7,6 +7,6 @@ class User(AbstractUser):
     resi_num = models.CharField(max_length=30, verbose_name="주민등록번호")
     ph_num = models.CharField(max_length=30, verbose_name="전화번호")
     nickname = models.CharField(max_length=50, verbose_name="닉네임")
-    resi_img = models.ImageField(null=True, verbose_name="주민등록증 사진")
-    present_img = models.ImageField(null=True, verbose_name="현재 사진")
+    resi_img = models.ImageField(null=True, verbose_name="주민등록증 사진", upload_to='users/')
+    present_img = models.ImageField(null=True, verbose_name="현재 사진", upload_to='users/')
 
