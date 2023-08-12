@@ -1,0 +1,48 @@
+<style>
+    button {
+      font-size: 18px;
+      background-color: rgb(0, 0, 0);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #000000;
+      cursor: pointer;
+    }
+  </style>
+
+<div class="container">
+    <h1 style="font-size: 40px; color: black;">물건 상세 정보</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="font-size: 20px; color: black;">이미지</th>
+          <th style="font-size: 20px; color: black;">닉네임</th>
+          <th style="font-size: 20px; color: black;">전화번호</th>
+          <th style="font-size: 20px; color: black;">위치</th>
+          <th style="font-size: 20px; color: black;">물건 이름</th>
+          <th style="font-size: 20px; color: black;">가격</th> 
+          <th><button>수락하기</button></th>
+        </tr>
+      </thead>
+    </table>
+</div>
+
+
+<!-- product_list.html -->
+{% for board_list in board_lists %}
+    <div>
+        <h1>상세 정보 페이지</h1>
+        <h2>{{ board_list.name }}</h2>
+        <!-- <img src="{% url 'board:board_detail' board_list.pk %}" /> -->
+        <p>닉네임: {{ board_list.user_nickname}}</p>
+        <p>제목: {{ board_list.title}}</p>
+    </div>
+{% endfor %}
+
+
+
+
+
