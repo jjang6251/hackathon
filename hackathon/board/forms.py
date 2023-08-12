@@ -1,11 +1,16 @@
-from django.forms import ModelForm
-from .models import *
+from django import forms
+from .models import Board
 
-class BoardForm(ModelForm):
+class BoardForm(forms.ModelForm):
     class Meta:
         model = Board
-        fields = ['image', 'content', 'user_nickname', 'user_location', 'user_ph_number', 'title', 'board_name', 'view_count', 'writer'] 
-        # 'write_dttm', 'update_dttm'
-
-
-
+        fields = ['board_image', 'board_nickname', 'title', 'money', 'board_content', 'board_location', 'board_number']
+        widgets = {
+            'board_image': forms.ClearableFileInput(attrs={'accept': 'image/*'}),
+            'board_nickname': forms.Textarea(),
+            'title': forms.Textarea(),
+            'money': forms.Textarea(),
+            'board_content': forms.Textarea(),
+            'board_location': forms.Textarea(),
+            'board_number': forms.Textarea(),
+        }

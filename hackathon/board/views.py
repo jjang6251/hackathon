@@ -24,33 +24,37 @@ def board_list(request):
 # 글쓰기 기능(Create)
 # @login_required # 로그인 했을 때만 가능한 것
 def board_write(request):
-    if request.method == 'GET':
-        return render(request, 'board/board_write.html')
-    else:
-        image = request.FILES.get('image')
-        content = request.POST.get('content')
-        title = request.POST.get('title')
-        user_nickname = request.POST.get('user_nickname')
-        user_location = request.POST.get('user_location')
-        user_ph_number = request.POST.get('user_ph_number'),
-        print(image)
-        print(content)
-        print(title)
-        print(user_nickname)
-        print(user_location)
-        print(user_ph_number)
+    # if request.method == 'GET':
+    #     return render(request, 'board/board_write.html')
+    # else:
+    #     board_nickname = request.POST.get('board_nickname')
+    #     board_location = request.POST.get('board_loaction')
+    #     board_image = request.FILES.get('board_image')
+    #     board_content = request.POST.get('board_content')
+    #     title = request.POST.get('title')
+    #     print(board_image)
+    #     print(board_content)
+    #     print(board_nickname)
+    #     print(board_location)
+    #     print(title)
 
-        # 데이터 생성
-        Board.objects.create(
-            image=image,
-            content=content,
-            title=title,
-            user_nickname=user_nickname,
-            user_location=user_location,
-            user_ph_number=user_ph_number,
-            # writer = request.user
-        )
-        return redirect('accounts:homepage')
+    #     # 데이터 생성
+    #     Board.objects.create(
+    #         board_image=board_image,
+    #         board_content=board_content,
+    #         title=title,
+    #         board_nickname=board_nickname,
+    #         board_location=board_location,
+    #     )
+    if request.method == 'POST':
+        form = BoardForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:board:board_list')
+        else:
+            form = BoardForm()
+
+    return render(request, 'board/board_write.html')
     
 # 업데이트 기능(Update)
 def board_update(request, id):

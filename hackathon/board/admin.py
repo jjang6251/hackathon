@@ -5,18 +5,18 @@ from django.contrib import admin
 from .models import Board
 
 class BoardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'board_name', 'user_nickname', 'user_location', 'writer', 'view_count', 'user_ph_number')  # 목록에서 보여줄 필드 설정
-    list_filter = ('board_name', )  # 필터 기능을 사용할 필드 설정
-    search_fields = ('title', 'content', 'user_nickname', 'user_location', 'writer__username')  # 검색 기능을 사용할 필드 설정
+    list_display = ('id', 'board_nickname', 'board_location', 'board_number', 'board_image', 'board_content', 'money', 'title', 'board_write_dttm', 'board_update_dttm', 'view_count')  # 목록에서 보여줄 필드 설정
+    list_filter = ('board_category', )  # 필터 기능을 사용할 필드 설정
+    search_fields = ('title', 'content', 'board_nickname', 'board_location')  # 검색 기능을 사용할 필드 설정
     ordering = ('-id',)  # 기본 정렬 순서 설정
 
     fieldsets = (
         ('글 정보', {
-            'fields': ('board_name', 'title', 'content', 'image')
+            'fields': ('image', 'title', ' board_content', 'board_category')
         }),
         ('작성자 정보', {
             'classes': ('collapse',),
-            'fields': ('writer', 'user_nickname', 'user_location', 'user_ph_number')
+            'fields': ('board_nickname', 'board_location', 'board_number')
         }),
     )
 

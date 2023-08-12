@@ -75,10 +75,10 @@
             </tr>
             {% for board_list in board_lists %}
             <tr>
-                <td><img src ="{{ board_list.image.url }}" alt="물건 사진" style="width: 30%; height: auto;"></td>
-                <td>{{board_list.user_nickname}}</td>
-                <td>{{board_list.user_location}}</td>
-                <td>{{board_list.content}}</td>
+                <td><img src ="{{ board_list.board_image.url }}" alt="물건 사진" style="width: 30%; height: auto;"></td>
+                <td>{{board_list.board_nickname}}</td>
+                <td>{{board_list.board_location}}</td>
+                <td>{{board_list.board_content}}</td>
                 <td>
                     <a href="{% url 'accounts:board:board_detail' %}"><button>상세보기</button></a>
                 </td>
