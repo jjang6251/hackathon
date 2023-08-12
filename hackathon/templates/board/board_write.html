@@ -1,52 +1,300 @@
-{% block title %}글을 작성해주세요.{% endblock %}
-
-{% block content %}
-
-<h1>입력 화면</h1>
-
-<form action="{% url 'accounts:board:board_write' %}" method='POST' enctype="multipart/form-data">
-  {% csrf_token %}
-
-	<div>
-		<label for="id_image">이미지</label>
-		<input type="file" name="board_image" accept="image/*" id="id_image">
-	</div>
-
-  <div>
-    <label for="id_user_nickname">닉네임</label>
-    <textarea name="board_nickname" id="id_user_nickname" cols="30" rows="10"></textarea>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시판 작성</title>
+  <style>
+    /* 전체 폼 컨테이너 */
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    }
+    
+    /* 제목 */
+    .form-container h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    /* 이미지 선택 필드 */
+    .form-container .image-field {
+      margin-bottom: 20px;
+    }
+    
+    .form-container .image-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-container .image-field input[type="file"] {
+      display: none;
+    }
+    
+    .form-container .image-field .custom-file-upload {
+      display: inline-block;
+      padding: 10px 22px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      background-color: #333;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    /* 닉네임 필드 */
+    .form-container .nickname-field {
+      margin-bottom: 20px;
+    }
+    
+    .form-container .nickname-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-container .nickname-field textarea {
+      width: 100%;
+      height: 50px;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+    }
+    
+    /* 제목 필드 */
+    .form-container .title-field {
+      margin-bottom: 20px;
+    }
+    
+    .form-container .title-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-container .title-field input[type="text"] {
+      width: 100%;
+      height: 50px;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+    }
+    
+    /* 가격 필드 */
+    .form-container .price-field {
+      margin-bottom: 20px;
+    }
+    
+    .form-container .price-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-container .price-field input[type="number"] {
+      width: calc(100% - 70px);
+      height: 50px;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px 0 0 5px;
+      border: 2px solid #ccc;
+    }
+    
+    .form-container .price-field input[type="number"]::-webkit-inner-spin-button,
+    .form-container .price-field input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    .form-container .price-field .input-group-append span {
+      display: inline-block;
+      width: 70px;
+      height: 50px;
+      padding: 0 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+      line-height: 50px;
+      text-align: center;
+      background-color: #ccc;
+      border-radius: 0 5px 5px 0;
+      border: 2px solid #ccc;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+    }
+    
+    /* 설명 필드 */
+    .form-container .description-field {
+      margin-bottom: 20px;
+    }
+    
+    .form-container .description-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-container .description-field textarea {
+      width: 100%;
+      height: 200px;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+    }
+    
+    /* 위치 필드 */
+    .form-container .location-field {
+      margin-bottom: 20px;
+    }
+    
+    .form-container .location-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-container .location-field input[type="text"] {
+      width: 100%;
+      height: 50px;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+    }
+    
+    /* 전화번호 필드 */
+    .form-container .phone-field {
+      margin-bottom: 20px;
+    }
+    
+    .form-container .phone-field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-container .phone-field input[type="tel"] {
+      width: 100%;
+      height: 50px;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+    }
+    
+    /* 제출 버튼 */
+    .form-container .submit-field {
+      text-align: center;
+    }
+    
+    .form-container .submit-field input[type="submit"] {
+      display: inline-block;
+      padding: 10px 22px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      background-color: #333;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .form-container .submit-field input[type="submit"]:hover {
+      background-color: #222;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>게시판 작성하기</h1>
+    <form action="{% url 'accounts:board:board_write' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <!-- 이미지 선택 필드 -->
+      <div class="image-field">
+        <label for="id_image">이미지</label>
+        <input type="file" name="board_image" accept="image/*" id="id_image">
+        <label class="custom-file-upload" for="id_image">이미지 선택하기</label>
+      </div>
+      
+      <!-- 닉네임 필드 -->
+      <div class="nickname-field">
+        <label for="id_user_nickname">닉네임</label>
+        <textarea name="board_nickname" id="id_user_nickname" cols="30" rows="1" required></textarea>
+      </div>
+      
+      <!-- 제목 필드 -->
+      <div class="title-field">
+        <label for="id_title">제목</label>
+        <input type="text" name="title" id="id_title" required>
+      </div>
+      
+      <!-- 가격 필드 -->
+      <div class="price-field">
+        <label for="id_money">가격</label>
+        <div class="input-group">
+          <input type="number" name="money" id="id_money" required>
+          <div class="input-group-append">
+            <span>원</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 설명 필드 -->
+      <div class="description-field">
+        <label for="id_content">자세한 설명</label>
+        <textarea name="board_content" id="id_content" cols="30" rows="10" required></textarea>
+      </div>
+      
+      <!-- 위치 필드 -->
+      <div class="location-field">
+        <label for="id_location">사용자의 위치</label>
+        <input type="text" name="board_location" id="id_location" required>
+      </div>
+      
+      <!-- 전화번호 필드 -->
+      <div class="phone-field">
+        <label for="id_ph_number">전화번호</label>
+        <input type="tel" name="board_number" id="id_ph_number" required>
+      </div>
+      
+      <!-- 제출 버튼 -->
+      <div class="submit-field">
+        <input type="submit" value="작성 완료">
+      </div>
+      
+    </form>
   </div>
-
-
-  <div>
-    <label for="id_title">제목</label>
-    <textarea name="title" id="id_title" cols="30" rows="10"></textarea>
-  </div>
-
-  <div>
-    <label for="id_money">가격</label>
-    <textarea name="money" id="id_money" cols="30" rows="10"></textarea>
-  </div>
-
-  <div>
-    <label for="id_content">자세한 설명</label>
-    <textarea name="board_content" id="id_content" cols="30" rows="10"></textarea>
-  </div>
-
-  <div>
-    <label for="id_location">사용자의 위치</label>
-    <textarea name="board_location" id="id_content" cols="30" rows="10"></textarea>
-  </div>
-
-  <div>
-    <label for="id_ph_number">전화번호</label>
-    <textarea name="board_number" id="id_ph_number" cols="30" rows="10"></textarea>
-  </div>
-
-  <div>
-    <input type="submit" value="작성완료">
-  </div>
-
-</form>
-{% endblock %}
-
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% block title %}글을 작성해주세요.{% endblock %}
+
+{% block content %}
+
+<h1>수정하기</h1>
+
+<form action="{% url 'accounts:board:board_modify' %}" method='POST' enctype="multipart/form-data">
+  {% csrf_token %}
+
+	<div>
+		<label for="id_image">이미지</label>
+		<input type="file" name="board_image" accept="image/*" id="id_image">
+	</div>
+
+  <div>
+    <label for="id_user_nickname">닉네임</label>
+    <textarea name="board_nickname" id="id_user_nickname" cols="30" rows="10"></textarea>
+  </div>
+
+
+  <div>
+    <label for="id_title">제목</label>
+    <textarea name="title" id="id_title" cols="30" rows="10"></textarea>
+  </div>
+
+  <div>
+    <label for="id_money">가격</label>
+    <textarea name="money" id="id_money" cols="30" rows="10"></textarea>
+  </div>
+
+  <div>
+    <label for="id_content">자세한 설명</label>
+    <textarea name="board_content" id="id_content" cols="30" rows="10"></textarea>
+  </div>
+
+  <div>
+    <label for="id_location">사용자의 위치</label>
+    <textarea name="board_location" id="id_content" cols="30" rows="10"></textarea>
+  </div>
+
+  <div>
+    <label for="id_ph_number">전화번호</label>
+    <textarea name="board_number" id="id_ph_number" cols="30" rows="10"></textarea>
+  </div>
+
+  <div>
+    <input type="submit" value="수정완료">
+  </div>
+
+</form>
+{% endblock %}
+

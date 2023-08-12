@@ -1,5 +1,4 @@
 <!doctype html>
-{% if user.is_authenticated %}
 {% load static %}
 <html lang="ko">
   <head>
@@ -11,10 +10,13 @@
   <body>
     <div class="container">
       <header>
-        {% csrf_token %}
         <p>돌쇠야</p>
         <ul>
+          {% if User.is_authenticated %}
+          <li><a href="{% url 'accounts:afterlogin'%}">홈</a></li>
+          {% else % }
           <li><a href="{% url 'accounts:homepage'%}">홈</a></li>
+          {% endif %}
           <li>{{ user.username }}님</a></li>
           <li><a href="{% url 'accounts:logout'%}">로그아웃</a></li>
         </ul>
@@ -31,4 +33,3 @@
     
   </body>
 </html>
-{% endif %}
