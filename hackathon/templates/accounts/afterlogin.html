@@ -17,7 +17,7 @@
           {% else % }
           <li><a href="{% url 'accounts:homepage'%}">홈</a></li>
           {% endif %}
-          <li>{{ user.username }}님</a></li>
+          <li><a href="{% url 'accounts:profile'%}">{{ user.username }}님</a></li>
           <li><a href="{% url 'accounts:logout'%}">로그아웃</a></li>
         </ul>
       </header>
