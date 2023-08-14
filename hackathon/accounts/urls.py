@@ -14,4 +14,7 @@ urlpatterns = [
     path("board/", include("board.urls")),
     path("profile/", views.profile_view, name="profile"),
     path("profile/edit/", views.edit_profile_view, name='edit_profile_view'),
+    path("find_id/", views.find_id_view, name="find_id"),
+    path("find_pw/", views.find_pw_view, name="find_pw"),
+    path("reset_pw/", views.reset_pw_view, name="reset_pw"),
 ]

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,13 @@ from .models import User
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
+from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
 
 from .forms import EditProfileForm
 
@@ -27,6 +34,59 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("accounts:homepage")
+
+def find_id_view(request):
+    if request.method == "POST":
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        ph_num = request.POST["ph_num"]
+
+        try:
+            user = User.objects.get(Q(first_name=firstname) & Q(last_name=lastname) & Q(ph_num=ph_num))
+            print("회원정보 일치")
+            messages.info(request, f"회원정보 일치 : 아이디는 {user.username} 입니다.")
+        except User.DoesNotExist:
+            print("회원정보 불일치")
+            messages.error(request, "회원정보 불일치 : 해당 정보로 등록된 계정이 없습니다.")
+
+    return render(request, "accounts/find_id.html")
+
+
+def find_pw_view(request):
+    if request.method == "POST":
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        ph_num = request.POST["ph_num"]
+        resi_num = request.POST["resi_num"]
+
+        try:
+            user = User.objects.get(
+                Q(first_name=firstname) & Q(last_name=lastname) & Q(ph_num=ph_num) & Q(resi_num=resi_num))
+            print("회원정보일치")
+            messages.info(request, f"회원정보 일치 : 비밀번호 초기화를 진행합니다.")
+            return render(request, "accounts/reset_pw.html")
+        except User.DoesNotExist:
+            print("회원정보불일치")
+            messages.error(request, "회원정보불일치 : 해당 정보로 등록된 계정이 없습니다.")
+
+    return render(request, "accounts/find_pw.html")
+
+
+def reset_pw_view(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, '비밀번호가 성공적으로 변경되었습니다.')
+            return redirect('profile')
+        else:
+            messages.error(request, '비밀번호가 변경되지 않았습니다.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})
+
+   
 
 def signup_view(request):
     
