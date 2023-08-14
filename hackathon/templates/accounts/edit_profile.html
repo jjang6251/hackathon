@@ -16,22 +16,25 @@
             <input type="text" name="last_name" value="{{ user.last_name }}" required>
         </div>
         <div>
-            <label for="email">이메일:</label>
-            <input type="email" name="email" value="{{ user.email }}" required>
+            <label for="nickname">닉네임:</label>
+            <input type="text" name="nickname" value="{{ user.nickname }}">
+        </div>
+        <div>
+            <label for="ph_num">전화번호:</label>
+            <input type="text" name="ph_num" value="{{ user.ph_num }}">
+            <label for="address">주소:</label>
+            <input type="text" name="address" value="{{ user.address }}">
         </div>
         <div>
             <label for="address">주소:</label>
             <input type="text" name="address" value="{{ user.address }}">
         </div>
         <div>
-            <label for="ph_num">전화번호:</label>
-            <input type="text" name="ph_num" value="{{ user.ph_num }}">
-        </div>
-        <div>
-            <label for="nickname">닉네임:</label>
-            <input type="text" name="nickname" value="{{ user.nickname }}">
+            <label for="email">이메일:</label>
+            <input type="email" name="email" value="{{ user.email }}" required>>
         </div>
         <button type="submit">저장</button>
     </form>
 </body>
 </html>
+
