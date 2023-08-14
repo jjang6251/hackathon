@@ -6,13 +6,12 @@ from django import forms
 from board.models import Board
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from datetime import date, datetime, timedelta
 
 
 from .forms import *
 from .models import *
 from accounts.models import *
-
-
 
 # 목록 리스트
 @login_required
@@ -48,11 +47,21 @@ def board_update(request, id):
     elif request.method == 'POST':
         pass
 
-def board_detail(request):
-    board_detail = Board.objects.all() # Board 전체 데이터 조회
+# 상세보기 기능
+def board_detail(request, pk):
+    board = get_object_or_404(Board, id=pk)
     context = {
-        'board_detail': board_detail,
+        'board_image' : board.board_image,
+        'title' : board.title,
+        'board_nickname' : board.board_nickname,
+        'board_location' : board.board_location,
+        'board_number' : board.board_number,
+        'board_content' : board.board_content,
+        'money' : board.money,
+        'board_write_dttm' : board.board_write_dttm,
+        'view_count' : board.view_count,
     }
+
     return render(request, 'board/board_detail.html', context)
 
 

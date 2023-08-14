@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -73,23 +72,27 @@
     </div>
     <table>
         <tr>
+            <th>번호</th>
             <th>이미지</th>
+            <th>제목</th>
+            <th>설명</th>
             <th>닉네임</th>
             <th>위치</th>
-            <th>내용</th>
+            <th>작성시간</th>
             <th>상세</th>
             <th>수정</th>
         </tr>
         {% for board_list in board_lists %}
         <tr>
-            <td><a href="{% url 'accounts:board:board_detail'%}"><img src ="{{ board_list.board_image.url }}" alt="물건 사진"></a></td>
+            <td>{{board_list.id}}</td>
+            <td><img src ="{{ board_list.board_image.url }}" alt="물건 사진"></td>
+            <td>{{board_list.title}}</td>
+            <td>{{board_list.board_content}}</td>
             <td>{{board_list.board_nickname}}</td>
             <td>{{board_list.board_location}}</td>
-            <td>{{board_list.board_content}}</td>
+            <td>{{board_list.board_write_dttm}}</td>
             <td>
-                <a href="{% url 'accounts:board:board_detail' %}">
-                    <button>상세보기</button>
-                </a>
+                <a href="{% url 'accounts:board:board_detail' pk=board_list.id %}"><button>상세보기</button></a>
             </td>
             <td>
                 {% if request.user.is_superuser %}
