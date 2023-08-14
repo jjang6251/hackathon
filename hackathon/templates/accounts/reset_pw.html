@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <title>비밀번호 초기화</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -116,32 +116,52 @@
     {% csrf_token %}
     <img class="mb-4" src="https://toss.im/assets/img/svg/toss_logo_horizontal.svg" alt="" width="200">
 
-    <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
+    <h1 class="h3 mb-3 font-weight-normal">비밀번호 초기화</h1>
 
-    <label for="username">아이디</label>
-    <input type="text" name="username" class="form-control" placeholder="아이디" required autofocus>
     <label for="password">비밀번호</label>
-    <input type="password" name="password" class="form-control" placeholder="비밀번호" required>
+    <input type="password" name="password" class="form-control" placeholder="비밀번호" required autofocus>
+    <label for="password2">비밀번호 확인</label>
+    <input type="password" name="password2" class="form-control" placeholder="비밀번호 확인" required>
 
 
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> 로그인 상태 유지
-        </label>
-    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">비밀번호 초기화</button>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-
-    <a href="{% url 'accounts:find_id' %}">아이디 찾기</a>
-    <a href="{% url 'accounts:find_pw' %}">비밀번호 찾기</a>
+    <a href="{% url 'accounts:homepage' %}">홈페이지</a>
+    <a href="{% url 'accounts:login' %}">로그인</a>
     <a href="{% url 'accounts:signup' %}">회원가입</a>
 
-    <p>간편 로그인</p>
-    <i class="fab fa-facebook fa-2x"></i>
-    <i class="fab fa-instagram fa-2x"></i>
 
     <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
 </form>
+
+<!-- 팝업 메시지 -->
+{% if messages %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            {% for message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+
+            $('#popupConfirmButton').on('click', function() {
+                var redirectToLogin = false; 
+
+                {% for message in messages %}
+                    {% if '회원정보일치' in message %}
+                        redirectToLogin = true;
+                        break; 
+                    {% endif %}
+                {% endfor %}
+
+                if (redirectToLogin) {
+                    window.location.href = "{% url 'accounts:login' %}";
+                } else {
+                }
+            });
+        });
+    </script>
+{% endif %}
+
 
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -151,6 +171,9 @@
 
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/14163a0893.js" crossorigin="anonymous"></script>
+
+<!-- Ajax CDN -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </body>
 </html>
