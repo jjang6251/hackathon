@@ -15,7 +15,7 @@ class Board(models.Model):
     board_category = models.CharField(max_length=32, default='카테고리 등록해주세요', verbose_name='카테고리')
     board_write_dttm = models.DateTimeField(auto_now=True, verbose_name='글 작성시간')
     board_update_dttm = models.DateTimeField(auto_now=True, verbose_name='마지막 수정일')
-    view_count = models.IntegerField(default=0, verbose_name='조회수')
+    view_count = models.PositiveIntegerField(default=0, verbose_name='조회수')
 
     def __str__(self):
         return self.title
