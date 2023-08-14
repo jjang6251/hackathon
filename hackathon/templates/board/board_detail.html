@@ -7,7 +7,7 @@
   <style>
     /* 테이블 스타일 */
     table {
-      width: 90%;
+      width: 100%;
       border-collapse: collapse;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       font-size: 18px;
@@ -73,7 +73,7 @@
     </tr>
     <!-- 테이블 내용 줄 -->
     <tr>
-      <td><img src="{{ board_image.url }}" alt="이미지" width="200px" height="130px" /></td>
+      <td><img src="{{ board_image.url }}" alt="이미지" width="200px" height="150px" /></td>
       <td>{{title}}</td>
       <td>{{board_nickname}}</td>
       <td>{{board_location_si}}</td>
@@ -84,7 +84,9 @@
       <td>{{board_content}}</td>
       <td>{{board_write_dttm}}</td>
       <td>{{view_count}}</td>
-      <td><a href=""></a><button>수락</button></a></td>
+      <td>
+        <a onclick="alert('사용자와 연락하여 진행하십시오.');" ><button>수락</button></a>
+    </td>
     </tr>
   </table>
 </body>
