@@ -50,6 +50,8 @@ def board_update(request, id):
 # 상세보기 기능
 def board_detail(request, pk):
     board = get_object_or_404(Board, id=pk)
+    board.view_count += 1
+    board.save()
     context = {
         'board_image' : board.board_image,
         'title' : board.title,
@@ -80,15 +82,15 @@ def board_modify(request, pk):
     board = get_object_or_404(Board, id=pk)
 
     if request.method == 'POST':
-        board.board_image = request.FILES["board_image"]
-        board.board_nickname = request.POST["board_nickname"]
-        board.title = request.POST["title"]
-        board.money = request.POST["money"]
-        board.board_content = request.POST["board_content"]
-        board.board_location = request.POST["board_location"]
-        board.board_number = request.POST["board_number"]
+        board.board_image = request.FILES.get("board_image", board.board_image)
+        board.board_nickname = request.POST.get("board_nickname", board.board_nickname)
+        board.title = request.POST.get("title", board.title)
+        board.money = request.POST.get("money", board.money)
+        board.board_content = request.POST.get("board_content", board.board_content)
+        board.board_location = request.POST.get("board_location", board.board_location)
+        board.board_number = request.POST.get("board_number", board.board_number)
         board.save()
         return redirect("accounts:board:board_list")
 
 
-    return render(request, 'board/board_write.html')
+    return render(request, 'board/board_modify.html')

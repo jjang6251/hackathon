@@ -24,5 +24,3 @@ class Board(models.Model):
         db_table = 'Board'
         verbose_name = '게시판'
         verbose_name_plural = '게시판'
-
-
