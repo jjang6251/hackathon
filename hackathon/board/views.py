@@ -56,7 +56,9 @@ def board_detail(request, pk):
         'board_image' : board.board_image,
         'title' : board.title,
         'board_nickname' : board.board_nickname,
-        'board_location' : board.board_location,
+        'board_location_si' : board.board_location_si,
+        'board_location_gu' : board.board_location_gu,
+        'board_location_dong' : board.board_location_dong,
         'board_number' : board.board_number,
         'board_content' : board.board_content,
         'money' : board.money,
@@ -87,7 +89,9 @@ def board_modify(request, pk):
         board.title = request.POST.get("title", board.title)
         board.money = request.POST.get("money", board.money)
         board.board_content = request.POST.get("board_content", board.board_content)
-        board.board_location = request.POST.get("board_location", board.board_location)
+        board.board_location_si = request.POST.get("board_location_si", board.board_location_si)
+        board.board_location_gu = request.POST.get("board_location_si", board.board_location_gu)
+        board.board_location_dong = request.POST.get("board_location_si", board.board_location_dong)
         board.board_number = request.POST.get("board_number", board.board_number)
         board.save()
         return redirect("accounts:board:board_list")

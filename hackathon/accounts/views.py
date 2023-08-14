@@ -38,7 +38,9 @@ def signup_view(request):
         lastname = request.POST["lastname"]
         email = request.POST["email"]
         gender = request.POST["gender"]
-        address = request.POST["address"]
+        address_si = request.POST["address_si"]
+        address_gu = request.POST["address_gu"]
+        address_dong = request.POST["address_dong"]
         resi_num = request.POST["resi_num"]
         ph_num = request.POST["ph_num"]
         nickname = request.POST["nickname"]
@@ -50,7 +52,9 @@ def signup_view(request):
             user.last_name = lastname
             user.first_name = firstname
             user.gender = gender
-            user.address = address
+            user.address_si = address_si
+            user.address_gu = address_gu
+            user.address_dong = address_dong
             user.gender = gender
             user.ph_num = ph_num
             user.resi_num = resi_num

@@ -6,7 +6,9 @@ User = get_user_model()
 
 class Board(models.Model):
     board_nickname = models.CharField(max_length=20, verbose_name='고객 닉네임')
-    board_location = models.CharField(max_length=60, verbose_name='고객 위치', default='거래 희망 장소를 입력해주세요')
+    board_location_si = models.CharField(max_length=60, verbose_name='고객 위치(시)', default='거래 희망 장소(시)를 입력해주세요')
+    board_location_gu = models.CharField(max_length=60, verbose_name='고객 위치(구)', default='거래 희망 장소(구)를 입력해주세요')
+    board_location_dong = models.CharField(max_length=60, verbose_name='고객 위치(동)', default='거래 희망 장소(동)를 입력해주세요')
     board_number = models.CharField(max_length=15, verbose_name='고객님 전화번호')
     board_image = models.ImageField(null=True, upload_to='images/')
     board_content = models.TextField(verbose_name='내용')
