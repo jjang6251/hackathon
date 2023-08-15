@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>회원 프로필 정보</h1>
+<<<<<<< Updated upstream
     <p>이름: {{ user.username }}</p>
     <p>닉네임:{{user.nickname}}</p>
     <p>전화번호: {{user.ph_num}}</p>
@@ -16,6 +17,18 @@
         <li><a href="{% url 'accounts:edit_profile_view'%}">수정하기</a></li>
     </ul>
     
+=======
+    <p>아이디: {{ user.username }}</p>
+    <p>이름: {{ user.first_name }}</p>
+    <p>성: {{ user.last_name }}</p>
+    <p>닉네임: {{ user.nickname }}</p>
+    <p>이메일: {{ user.email }}</p>
+    <p>주소(시): {{ user.address_si }}</p>
+    <p>주소(동): {{ user.address_dong }}</p>
+    <p>전화번호: {{ user.ph_num }}</p>
+    <p>프로필 사진: <img src="{{ profile_info.profile_image.url }}"/></p>
+    <li><a href="{% url 'accounts:edit_profile_view'%}">수정하기</a></li>
+>>>>>>> Stashed changes
     <!-- 회원 프로필 정보를 출력하는 코드 작성 -->
 </body>
 </html>
