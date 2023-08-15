@@ -8,6 +8,10 @@
     <form method="post">
         {% csrf_token %}
         <div>
+            <label for="username">아이디:</label>
+            <input type="text" name="username" value="{{ user.username }}" required>
+        </div>
+        <div>
             <label for="first_name">이름:</label>
             <input type="text" name="first_name" value="{{ user.first_name }}" required>
         </div>
@@ -16,22 +20,42 @@
             <input type="text" name="last_name" value="{{ user.last_name }}" required>
         </div>
         <div>
-            <label for="email">이메일:</label>
-            <input type="email" name="email" value="{{ user.email }}" required>
-        </div>
-        <div>
-            <label for="address">주소:</label>
-            <input type="text" name="address" value="{{ user.address }}">
+            <label for="nickname">닉네임:</label>
+<<<<<<< Updated upstream
+            <input type="text" name="nickname" value="{{ user.nickname }}">
         </div>
         <div>
             <label for="ph_num">전화번호:</label>
             <input type="text" name="ph_num" value="{{ user.ph_num }}">
+            <label for="address">주소:</label>
+            <input type="text" name="address" value="{{ user.address }}">
+=======
+            <input type="text" name="nickname" value="{{ user.nickname }}" required>
         </div>
         <div>
-            <label for="nickname">닉네임:</label>
-            <input type="text" name="nickname" value="{{ user.nickname }}">
+            <label for="email">이메일:</label>
+            <input type="email" name="email" value="{{ user.email }}" required>
+>>>>>>> Stashed changes
+        </div>
+        <div>
+            <label for="address_si">주소(시):</label>
+            <input type="text" name="address_si" value="{{ user.address_si }}">
+        </div>
+        <div>
+            <label for="address_dong">주소(동):</label>
+            <input type="text" name="address_dong" value="{{ user.address_dong }}">
+        </div>
+        <div>
+<<<<<<< Updated upstream
+            <label for="email">이메일:</label>
+            <input type="email" name="email" value="{{ user.email }}" required>>
+=======
+            <label for="ph_num">전화번호:</label>
+            <input type="text" name="ph_num" value="{{ user.ph_num }}">
+>>>>>>> Stashed changes
         </div>
         <button type="submit">저장</button>
     </form>
 </body>
 </html>
+
