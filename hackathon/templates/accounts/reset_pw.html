@@ -118,10 +118,12 @@
 
     <h1 class="h3 mb-3 font-weight-normal">비밀번호 초기화</h1>
 
-    <label for="password">비밀번호</label>
-    <input type="password" name="password" class="form-control" placeholder="비밀번호" required autofocus>
-    <label for="password2">비밀번호 확인</label>
-    <input type="password" name="password2" class="form-control" placeholder="비밀번호 확인" required>
+    <label for="username">아이디</label>
+    <input type="password" name="username" class="form-control" placeholder="아이디" required autofocus>
+    <label for="password">새 비밀번호</label>
+    <input type="password" name="password" class="form-control" placeholder="새 비밀번호" required autofocus>
+    <label for="password2">새 비밀번호 확인</label>
+    <input type="password" name="password2" class="form-control" placeholder="새 비밀번호 확인" required>
 
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">비밀번호 초기화</button>
@@ -143,21 +145,7 @@
                 alert('{{ message }}');
             {% endfor %}
 
-            $('#popupConfirmButton').on('click', function() {
-                var redirectToLogin = false; 
 
-                {% for message in messages %}
-                    {% if '회원정보일치' in message %}
-                        redirectToLogin = true;
-                        break; 
-                    {% endif %}
-                {% endfor %}
-
-                if (redirectToLogin) {
-                    window.location.href = "{% url 'accounts:login' %}";
-                } else {
-                }
-            });
         });
     </script>
 {% endif %}
