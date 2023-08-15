@@ -17,11 +17,7 @@
           {% else % }
           <li><a href="{% url 'accounts:homepage'%}">홈</a></li>
           {% endif %}
-<<<<<<< Updated upstream
           <li><a href="{% url 'accounts:profile'%}">{{ user.username }}님</a></li>
-=======
-          <li><a href="{% url 'accounts:frofile'%}">{{ user.username }}님</a></li>
->>>>>>> Stashed changes
           <li><a href="{% url 'accounts:logout'%}">로그아웃</a></li>
         </ul>
       </header>

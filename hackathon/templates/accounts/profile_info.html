@@ -12,7 +12,7 @@
     <p>전화번호: {{user.ph_num}}</p>
     <p>주소 : {{user.address}}</p>
     <p>이메일 주소: {{ user.email }}</p>
-    <p>프로필 사진: <img src="{{ profile_info.profile_image.url }}"/></p>
+    <p>프로필 사진: <img src="{{profile_image.url }}"/></p>
     <ul>
         <li><a href="{% url 'accounts:edit_profile_view'%}">수정하기</a></li>
     </ul>

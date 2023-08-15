@@ -18,12 +18,23 @@ from accounts.models import *
 def board_list(request):
     if not request.user.is_authenticated:
         return redirect('accounts:afterlogin')
-    board_lists = Board.objects.all() # Board 전체 데이터 조회
-    #board_list = Board.objects.filter(writer=request.user) # Board.writer가 현재 로그인인 것 조회
-    context = {
-        'board_lists': board_lists,
-    }
-    return render(request, 'board/board_list.html', context)
+    if request.user.is_superuser:
+        board_lists = Board.objects.all() # Board 전체 데이터 조회
+        #board_list = Board.objects.filter(writer=request.user) # Board.writer가 현재 로그인인 것 조회
+        context = {
+            'board_lists': board_lists,
+        }
+    else:
+        board_lists = Board.objects.filter(board_location_dong = request.user.address_dong)
+         #board_list = Board.objects.filter(writer=request.user) # Board.writer가 현재 로그인인 것 조회
+        context = {
+            'board_lists': board_lists,
+        }
+
+
+    return render(request, 'board/board_list.html', context)        
+
+            
 
 # 글쓰기 기능(Create)
 #  # 로그인 했을 때만 가능한 것
@@ -90,8 +101,8 @@ def board_modify(request, pk):
         board.money = request.POST.get("money", board.money)
         board.board_content = request.POST.get("board_content", board.board_content)
         board.board_location_si = request.POST.get("board_location_si", board.board_location_si)
-        board.board_location_gu = request.POST.get("board_location_gu", board.board_location_gu)
-        board.board_location_dong = request.POST.get("board_location_dong", board.board_location_dong)
+        board.board_location_gu = request.POST.get("board_location_si", board.board_location_gu)
+        board.board_location_dong = request.POST.get("board_location_si", board.board_location_dong)
         board.board_number = request.POST.get("board_number", board.board_number)
         board.save()
         return redirect("accounts:board:board_list")

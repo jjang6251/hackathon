@@ -91,17 +91,27 @@
             font-family: 'Noto Sans KR', sans-serif;
         }
         .form-signin h1 {
-            font-size: 32px;
+            font-size: 48px;
             margin-bottom: 20px;
-            color: #5ba82e;
+            color: pink;
         }
-        .form-signin a {
-            color: #5ba82e;
+        .form-signin h2{
+            font-size: 18px;
+            margin-bottom: 20px;
+            
+        }
+        .from-loginmenu {
+            display:flex;
+        }
+        .loginmenu a {  
+            color: #737881;;
             font-size: 14px;
-            text-decoration: none;
-            margin-bottom: 10px;
-            display: block;
+            flex: 1;
+            margin-right: 10px;
+            text-align: center; /* 텍스트 가운데 정렬을 위해 text-align 속성을 추가합니다. */
         }
+        
+        
         .form-signin p {
             font-size: 14px;
             margin-top: 15px;
@@ -116,7 +126,7 @@
     {% csrf_token %}
     <img class="mb-4" src="https://toss.im/assets/img/svg/toss_logo_horizontal.svg" alt="" width="200">
 
-    <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
+    <h1 class="h3 mb-3 font-weight-normal">돌쇠야</h1>
 
     <label for="username">아이디</label>
     <input type="text" name="username" class="form-control" placeholder="아이디" required autofocus>
@@ -131,16 +141,15 @@
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+    <p class="loginmenu">
+        <a href="{% url 'accounts:find_id' %}">아이디 찾기</a>
+        <a href="{% url 'accounts:find_pw' %}">비밀번호 찾기</a>
+        <a href="{% url 'accounts:signup' %}">회원가입</a>
+    </p>
+    
 
-    <a href="{% url 'accounts:find_id' %}">아이디 찾기</a>
-    <a href="{% url 'accounts:find_pw' %}">비밀번호 찾기</a>
-    <a href="{% url 'accounts:signup' %}">회원가입</a>
-
-    <p>간편 로그인</p>
     <i class="fab fa-facebook fa-2x"></i>
     <i class="fab fa-instagram fa-2x"></i>
-
-    <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
 </form>
 
 <!-- Bootstrap JS -->

@@ -2,6 +2,16 @@
 {% load static %}
 <html lang="ko">
   <head>
+    <style>
+        container.header.p{
+          font-size: 3rem;
+        }
+        footer{
+          margin-bottom: 1rem;
+          font-size: 1.1rem;
+          color: #9fa1a7;
+        }
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>돌쇠야</title>
@@ -18,16 +28,14 @@
         </ul>
       </header>
       <section>
-        <p>Cover your page.</p>
-        <p>Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
         {% if User.is_authenticated %}
           <a href="{% url 'accounts:board:board_list'%}">게시판</a>
         {% else %}
-          <a href="{% url 'accounts:login'%}">게시판을 이용하려면 로그인이 필요합니다</a>
+          <a href="{% url 'accounts:login'%}">로그인이 필요합니다</a>
         {% endif %}
       </section>
       <footer>
-        Cover template for <a href="https://twitter.com/mdo">Bootstrap, by <a href="https://twitter.com/mdo">@mdo.
+        고객센터 문의 02-xxx-xxxx
       </footer>
     </div>
     
