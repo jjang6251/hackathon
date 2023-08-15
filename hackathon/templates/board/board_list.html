@@ -26,6 +26,9 @@
           width: 100%;
           margin-bottom: 20px;
         }
+        p{
+            color: red;
+        }
 
         th, td {
           text-align: center;
@@ -131,7 +134,7 @@
                     </tr>
                     {% endfor %}
                 {% else %}
-                    존재하지 않는다.
+                    <p>※※귀하의 주소에는 심부름 요청이 없습니다※※</p>
                 {% endif %}
             {% endif %}
         {% endif %}
