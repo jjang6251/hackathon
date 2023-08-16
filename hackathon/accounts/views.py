@@ -56,19 +56,18 @@ def find_id_view(request):
 
 def find_pw_view(request):
     if request.method == "POST":
-        first_name = request.POST["first_name"]
-        last_name = request.POST["last_name"]
-        ph_num = request.POST["ph_num"]
-        resi_num = request.POST["resi_num"]
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        ph_num = request.POST.get("ph_num")
+        resi_num = request.POST.get("resi_num")
 
-        try:
-            user = User.objects.get(
-                Q(first_name=first_name) & Q(last_name=last_name) &
-                Q(ph_num=ph_num) & Q(resi_num=resi_num))
+        if user.first_name==first_name and user.last_name==last_name and user.ph_num==ph_num and user.resi_num==resi_num:
             print("회원정보일치")
             messages.info(request, "회원정보 일치 : 비밀번호 초기화를 진행합니다.")
             return render(request, "accounts/reset_pw.html")
-        except User.DoesNotExist:
+        
+    
+        else :
             print("회원정보불일치")
             messages.error(request, "회원정보 불일치 : 해당 정보로 등록된 계정이 없습니다.")
 
