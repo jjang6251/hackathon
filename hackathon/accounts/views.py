@@ -31,6 +31,8 @@ def logout_view(request):
 def signup_view(request):
     
     if request.method == "POST":
+
+
         username = request.POST["username"]
         password = request.POST["password"]
         password2 = request.POST["password2"]
@@ -47,6 +49,8 @@ def signup_view(request):
         resi_img = request.FILES["resi_img"]
         present_img = request.FILES["present_img"]
 
+
+
         if password == password2:
             user =  User.objects.create_user(username, email, password)
             user.last_name = lastname
@@ -62,13 +66,13 @@ def signup_view(request):
             user.resi_img = resi_img
             user.present_img = present_img
             user.save()
+    
             return redirect("accounts:login")
         else:
             return redirect("accounts:signup")
         
-
-        
     return render(request, "accounts/signup.html")
+
 
 def homepage_view(request):
     return render(request, "accounts/homepage.html")
@@ -80,6 +84,7 @@ def after_login_view(request):
 
 def profile(request):
     # 프로필 템플릿을 렌더링합니다.
+    
     return render(request, "accounts/profile.html")
 
 @login_required
@@ -141,9 +146,9 @@ class EditProfileView(LoginRequiredMixin, FormView):
         initial['first_name'] = user.first_name
         initial['last_name'] = user.last_name
         initial['email'] = user.email
-        initial['address'] = user.profile.address
-        initial['ph_num'] = user.profile.ph_num
-        initial['nickname'] = user.profile.nickname
+        initial['address'] = user.address
+        initial['ph_num'] = user.ph_num
+        initial['nickname'] = user.nickname
         return initial
 
     def form_valid(self, form):
@@ -156,9 +161,12 @@ class EditProfileView(LoginRequiredMixin, FormView):
         user.profile.nickname = form.cleaned_data['nickname']
         user.save()
 
-        profile = user.profile
-        profile.phone_number = form.cleaned_data['phone_number']
-        profile.website = form.cleaned_data['website']
-        profile.save()
+        if hasattr(user, 'profile'):
+            user.profile.phone_number = form.cleaned_data['phone_number']
+            user.profile.website = form.cleaned_data['website']
+            user.profile.save()
 
         return super().form_valid(form)
+
+    def edit_profile_view(request):
+     return EditProfileView.as_view()(request)
