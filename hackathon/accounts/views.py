@@ -67,7 +67,7 @@ def find_pw_view(request):
             return render(request, "accounts/reset_pw.html")
         except User.DoesNotExist:
             print("회원정보불일치")
-            messages.error(request, "회원정보불일치 : 해당 정보로 등록된 계정이 없습니다.")
+            messages.error(request, "회원정보 불일치 : 해당 정보로 등록된 계정이 없습니다.")
 
     return render(request, "accounts/find_pw.html")
 

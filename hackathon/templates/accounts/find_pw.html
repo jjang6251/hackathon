@@ -154,12 +154,13 @@
                 {% for message in messages %}
                     {% if '회원정보일치' in message %}
                         redirectToLogin = true;
+                        window.location.href = "{% url 'accounts:reset_pw' %}";
                         break; 
                     {% endif %}
                 {% endfor %}
 
                 if (redirectToLogin) {
-                    window.location.href = "{% url 'accounts:login' %}";
+                    window.location.href = "{% url 'accounts:reset_pw' %}";
                 } else {
                 }
             });
