@@ -82,8 +82,10 @@
             <th>닉네임</th>
             <th>위치(동)</th>
             <th>작성시간</th>
+            <th>수정시간</th>
             <th>상세</th>
             <th>수정</th>
+            <th>완료</th>
         </tr>
         {% if user.is_authenticated %}
             {%if request.user.is_superuser %}
@@ -96,6 +98,7 @@
                         <td>{{board_list.board_nickname}}</td>
                         <td>{{board_list.board_location_dong}}</td>
                         <td>{{board_list.board_write_dttm}}</td>
+                        <td>{{board_list.board_update_dttm}}</td>
                         <td>
                             <a href="{% url 'accounts:board:board_detail' pk=board_list.id %}"><button>상세보기</button></a>
                         </td>
@@ -107,6 +110,10 @@
                             {% endif %}
                             </a>
                         </td>
+                        <td>
+                            <input type="checkbox" id="cbox" name="cbox">
+                        </td>
+
                     </tr>
                 {% endfor %}
             {% else %}
@@ -120,6 +127,7 @@
                         <td>{{board_list.board_nickname}}</td>
                         <td>{{board_list.board_location_dong}}</td>
                         <td>{{board_list.board_write_dttm}}</td>
+                        <td>{{board_list.board_update_dttm}}</td>
                         <td>
                             <a href="{% url 'accounts:board:board_detail' pk=board_list.id %}"><button>상세보기</button></a>
                         </td>
@@ -130,6 +138,9 @@
                                 X
                             {% endif %}
                             </a>
+                        </td>
+                        <td>
+                            <input type="checkbox" id="cbox" name="cbox">
                         </td>
                     </tr>
                     {% endfor %}
