@@ -62,7 +62,6 @@ def board_update(request, id):
 def board_detail(request, pk):
     board = get_object_or_404(Board, id=pk)
     board.view_count += 1
-    board.save()
     context = {
         'board_image' : board.board_image,
         'title' : board.title,
@@ -101,8 +100,8 @@ def board_modify(request, pk):
         board.money = request.POST.get("money", board.money)
         board.board_content = request.POST.get("board_content", board.board_content)
         board.board_location_si = request.POST.get("board_location_si", board.board_location_si)
-        board.board_location_gu = request.POST.get("board_location_si", board.board_location_gu)
-        board.board_location_dong = request.POST.get("board_location_si", board.board_location_dong)
+        board.board_location_gu = request.POST.get("board_location_gu", board.board_location_gu)
+        board.board_location_dong = request.POST.get("board_location_dong", board.board_location_dong)
         board.board_number = request.POST.get("board_number", board.board_number)
         board.save()
         return redirect("accounts:board:board_list")
