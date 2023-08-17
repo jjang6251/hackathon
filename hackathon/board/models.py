@@ -18,7 +18,7 @@ class Board(models.Model):
     board_write_dttm = models.DateTimeField(auto_now_add=True, verbose_name='글 작성시간')
     board_update_dttm = models.DateTimeField(auto_now=True, verbose_name='마지막 수정일')
     view_count = models.PositiveIntegerField(default=0, verbose_name='조회수')
-
+    
     def __str__(self):
         return self.title
 

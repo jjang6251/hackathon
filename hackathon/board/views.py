@@ -62,6 +62,7 @@ def board_update(request, id):
 def board_detail(request, pk):
     board = get_object_or_404(Board, id=pk)
     board.view_count += 1
+    board.save(update_fields=['view_count'])
     context = {
         'board_image' : board.board_image,
         'title' : board.title,
