@@ -13,7 +13,7 @@ PROJECT_APPS += [
 
 ]
 
-INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
+INSTALLED_APPS = list(DJANGO_APPS) + (PROJECT_APPS)
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
