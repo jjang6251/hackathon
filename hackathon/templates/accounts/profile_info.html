@@ -1,34 +1,44 @@
-<!-- app/templates/accounts/profile.html -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>프로필 페이지</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+        .profile-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.25);
+        }
+        img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 100%;
+            overflow: hidden;
+            object-fit: cover;
+            object-position: center;
+            margin-bottom: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>회원 프로필 정보</h1>
-<<<<<<< Updated upstream
-    <p>이름: {{ user.username }}</p>
-    <p>닉네임:{{user.nickname}}</p>
-    <p>전화번호: {{user.ph_num}}</p>
-    <p>주소 : {{user.address}}</p>
-    <p>이메일 주소: {{ user.email }}</p>
-    <p>프로필 사진: <img src="{{profile_image.url }}"/></p>
-    <ul>
-        <li><a href="{% url 'accounts:edit_profile_view'%}">수정하기</a></li>
-    </ul>
-    
-=======
-    <p>아이디: {{ user.username }}</p>
-    <p>이름: {{ user.first_name }}</p>
-    <p>성: {{ user.last_name }}</p>
-    <p>닉네임: {{ user.nickname }}</p>
-    <p>이메일: {{ user.email }}</p>
-    <p>주소(시): {{ user.address_si }}</p>
-    <p>주소(동): {{ user.address_dong }}</p>
-    <p>전화번호: {{ user.ph_num }}</p>
-    <p>프로필 사진: <img src="{{ profile_info.profile_image.url }}"/></p>
-    <li><a href="{% url 'accounts:edit_profile_view'%}">수정하기</a></li>
->>>>>>> Stashed changes
+    <div class="container-sm profile-container">
+        <h1>회원 프로필 정보</h1>
+        <p>이름: {{ user.username }}</p>
+        <p>이메일 주소: {{ user.email }}</p>
+        <p>프로필 사진:</p><img src="{{ profile_info.profile_image.url }}" alt="프로필 사진"/>
+    </div>
     <!-- 회원 프로필 정보를 출력하는 코드 작성 -->
 </body>
 </html>

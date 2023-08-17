@@ -20,9 +20,8 @@ header {
     padding: 1.2rem 0;
 }
 header>p {
-    font-size: 3.7rem;
-    font-weight: 1000;
-    color:pink;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 header>ul {
     display: flex;
@@ -47,6 +46,9 @@ section {
     padding: 0 1rem;
     text-align: center;
 }
+section>p {
+    margin-bottom: 2rem;
+}
 section>p:first-child {
     font-size: 2rem;
     font-weight: 900;
@@ -62,14 +64,13 @@ section>a {
     font-size: 1.3rem;
     font-weight: 600;
     margin: auto;
-    padding: 1rem;  
+    padding: 1rem;
     border-radius: 10px;
     text-decoration: none;
 }
 footer {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     font-size: 1.1rem;
-    color: #9fa1a7;
 }
 footer>a {
     text-decoration: none;

@@ -17,17 +17,15 @@
           {% else % }
           <li><a href="{% url 'accounts:homepage'%}">홈</a></li>
           {% endif %}
-          <li><a href="{% url 'accounts:profile'%}">{{ user.username }}님</a></li>
+          <li>{{ user.username }}님</a></li>
           <li><a href="{% url 'accounts:logout'%}">로그아웃</a></li>
         </ul>
       </header>
       <section>
-        <p>Cover your page.</p>
-        <p>Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
         <a href="{% url 'accounts:board:board_list'%}">게시판</a>
       </section>
       <footer>
-        Cover template for <a href="https://twitter.com/mdo">Bootstrap, by <a href="https://twitter.com/mdo">@mdo.
+        Cover template for <a href="https://twitter.com/mdo">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.
       </footer>
     </div>
     
