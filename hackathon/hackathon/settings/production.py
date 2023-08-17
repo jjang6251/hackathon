@@ -3,7 +3,7 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False #프로필 구현에서 수정 True->False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.35.27.125']
 
 DJANGO_APPS += [
 
