@@ -110,7 +110,8 @@
             <p><strong>전화번호:</strong> {{ user.ph_num }}</p>
             <p><strong>주소:</strong> {{ user.address_si }} {{ user.address_gu }} {{ user.address_dong }}</p>
             <ul>
-                <li><a href="{% url 'accounts:edit_profile_view'%}">수정하기</a></li>
+                <a href="{% url 'accounts:edit_profile' %}" class="btn btn-secondary float-right">수정하기</a>
+
             </ul>
         </div>
     </div>

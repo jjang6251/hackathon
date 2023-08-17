@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, reverse_lazy
 from . import views
 from .views import profile_view, edit_profile_view
 
@@ -13,5 +13,5 @@ urlpatterns = [
     path("afterlogin/", views.after_login_view, name="afterlogin"),
     path("board/", include("board.urls")),
     path("profile/", views.profile_view, name="profile"),
-    path("profile/edit/", views.edit_profile_view, name='edit_profile_view'),
+    path('profile/edit/', views.edit_profile_view, name='edit_profile'),
 ]

@@ -2,13 +2,18 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from .models import User
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from .models import User,Profile
+from .forms import EditProfileForm,ProfileForm
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 #프로필 수정 오버라이드
-from django.views.generic.edit import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
 
-from .forms import EditProfileForm
+# from django.views.generic.edit import FormView
+# from django.contrib.auth.mixins import LoginRequiredMixin
+# from django.urls import reverse_lazy
+
+# from .forms import EditProfileForm
 
 def login_view(request):
     if request.method == "POST":
@@ -105,68 +110,45 @@ def profile_view(request):
      }
     return render(request, "accounts/profile_info.html", {"user": user})
 
-#프로필 수정 파트
+def profile(request):
+    if request.method =='POST':
+        user_change_form = EditProfileForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_change_form.is_valid()and profile_form.is_valid():
+            user = user_change_form.save()
+            profile_form.save()
+            return redirect('User',user.username)
+        return redirect('accounts:profile')
+    else: 
+        user_change_form=EditProfileForm(instance=request.user)
+        profile, create= Profile.objects.get_or_create(user=request.user)
 
-def edit_profile(request):
-    # 프로필 수정 템플릿을 렌더링합니다.
-    return render(request, "accounts/profile/edit.html")
+    profile_form = ProfileForm(instance=profile)
+    return render(request, 'accounts/profile.html',{
+        'user_change_form':user_change_form,
+        'profile_form':profile_form
+    })
 
-@login_required
+
+
+
 def edit_profile_view(request):
-    user = request.user
-    if request.method == "POST":
-        user.first_name = request.POST.get("first_name", "")
-        user.last_name = request.POST.get("last_name", "")
-        user.email = request.POST.get("email", "")
-        user.address = request.POST.get("address", "")
-        user.ph_num = request.POST.get("ph_num", "")
-        user.nickname = request.POST.get("nickname", "")
-        user.save()
-        return redirect("accounts:profile")
-    return render(request, "accounts/edit_profile.html", {"user": user})
+    #  프로필 수정 템플릿을 렌더링합니다.
+    return render(request, "accounts/edit_profile.html")
 
-class EditProfileView(LoginRequiredMixin, FormView):
-    template_name = 'accounts/edit_profile.html'
-    form_class = EditProfileForm
-    success_url = reverse_lazy('accounts:profile')
+# def edit_profile_view(request, id=None):
+#     if id is None:
+#         id = request.user.id
+#     user = get_object_or_404(User, id=id)
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
-        return context
-
-    def get_initial(self):
-        initial = super().get_initial()
-        user = self.request.user
-        initial['first_name'] = user.first_name
-        initial['last_name'] = user.last_name
-        initial['email'] = user.email
-        initial['address'] = user.address
-        initial['ph_num'] = user.ph_num
-        initial['nickname'] = user.nickname
-        return initial
-
-    def form_valid(self, form):
-        user = self.request.user
-        user.first_name = form.cleaned_data['first_name']
-        user.last_name = form.cleaned_data['last_name']
-        user.email = form.cleaned_data['email']
-        user.profile.address = form.cleaned_data['address']
-        user.profile.ph_num = form.cleaned_data['ph_num']
-        user.profile.nickname = form.cleaned_data['nickname']
-        user.save()
-
-        if hasattr(user, 'profile'):
-            user.profile.phone_number = form.cleaned_data['phone_number']
-            user.profile.website = form.cleaned_data['website']
-            user.profile.save()
-
-        return super().form_valid(form)
-
-    def edit_profile_view(request):
-     return EditProfileView.as_view()(request)
+#     if request.method == "POST":
+#         user.first_name = request.POST.get("first_name", "")
+#         user.last_name = request.POST.get("last_name", "")
+#         user.email = request.POST.get("email", "")
+#         user.address = request.POST.get("address", "")
+#         user.ph_num = request.POST.get("ph_num", "")
+#         user.nickname = request.POST.get("nickname", "")
+#         user.save()
+#         return redirect("accounts:profile")
+#     return render(request, 'accounts/edit_profile.html', {'user': user})

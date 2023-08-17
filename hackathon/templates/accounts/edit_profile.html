@@ -220,7 +220,8 @@ button.my-button {
 
           <input type="text" name="ph_num" value="{{ user.ph_num }}">
         </div>
-            <a href="#" class="my-button" button onclick="showPopup()">저장</button></a>
+            <a href="{% url 'accounts:edit_profile' %}" class="my-button" onclick="showPopup()">저장</a>
+
             <div id="popup">저장되었습니다.</div>
       </form>
     </div>

@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser,User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 class User(AbstractUser):
     gender = models.CharField(max_length=5, verbose_name="성별")
     address_si = models.CharField(max_length=50, verbose_name="거주지(시)")
@@ -18,7 +19,9 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    address = models.CharField(max_length=255)
+    address_si = models.CharField(max_length=100, null=True, default='')
+    address_gu = models.CharField(max_length=100, null=True, default='')
+    address_dong = models.CharField(max_length=100, null=True, default='')
     ph_num = models.CharField(max_length=20)
     nickname = models.CharField(max_length=30)
 
@@ -40,3 +43,6 @@ def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
     except Profile.DoesNotExist:  # profile이 없는 경우
         Profile.objects.create(user=instance, address=instance.address_si + ' ' + instance.address_gu + ' ' + instance.address_dong, ph_num=instance.ph_num, nickname=instance.nickname)
+
+class MyModel(models.Model):
+    my_field = models.CharField(max_length=50, default='my_default_value')
