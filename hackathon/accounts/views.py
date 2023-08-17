@@ -13,6 +13,8 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import get_user_model 
+
 
 
 from .forms import EditProfileForm
@@ -54,37 +56,46 @@ def find_id_view(request):
 
 def find_pw_view(request):
     if request.method == "POST":
-        firstname = request.POST["firstname"]
-        lastname = request.POST["lastname"]
-        ph_num = request.POST["ph_num"]
-        resi_num = request.POST["resi_num"]
-
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        ph_num = request.POST.get("ph_num")
+        resi_num = request.POST.get("resi_num")
+        
         try:
             user = User.objects.get(
-                Q(first_name=firstname) & Q(last_name=lastname) & Q(ph_num=ph_num) & Q(resi_num=resi_num))
+                Q(first_name=first_name) & Q(last_name=last_name) &
+                Q(ph_num=ph_num) & Q(resi_num=resi_num))
             print("회원정보일치")
-            messages.info(request, f"회원정보 일치 : 비밀번호 초기화를 진행합니다.")
+            messages.info(request, "회원정보 일치 : 비밀번호 초기화를 진행합니다.")
             return render(request, "accounts/reset_pw.html")
         except User.DoesNotExist:
             print("회원정보불일치")
-            messages.error(request, "회원정보불일치 : 해당 정보로 등록된 계정이 없습니다.")
+            messages.error(request, "회원정보 불일치 : 해당 정보로 등록된 계정이 없습니다.")
 
     return render(request, "accounts/find_pw.html")
 
 
+
 def reset_pw_view(request):
     if request.method == "POST":
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            messages.success(request, '비밀번호가 성공적으로 변경되었습니다.')
-            return redirect('profile')
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        password2 = request.POST.get("password2")
+
+        if password == password2:
+            User = get_user_model()
+            user = User.objects.get(username=username)
+            user.set_password(password)
+            user.save()
+
+            messages.info(request, '비밀번호가 성공적으로 변경되었습니다.')
+            return redirect("accounts:login")
+            
         else:
-            messages.error(request, '비밀번호가 변경되지 않았습니다.')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'change_password.html', {'form': form})
+            messages.error(request, '사용자를 찾을 수 없습니다.')
+
+    return render(request, 'accounts/reset_pw.html')
+
 
    
 

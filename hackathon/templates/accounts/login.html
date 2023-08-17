@@ -119,6 +119,19 @@
         }
     </style>
 
+<!-- 팝업 메시지 -->
+{% if messages %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            {% for message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+        });
+    </script>
+{% endif %}
+
+
 </head>
 <body class="text-center">
 
@@ -151,6 +164,9 @@
     <i class="fab fa-facebook fa-2x"></i>
     <i class="fab fa-instagram fa-2x"></i>
 </form>
+
+
+
 
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
