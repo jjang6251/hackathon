@@ -15,9 +15,7 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    address_si = models.CharField(max_length=100, null=True, default='')
-    address_gu = models.CharField(max_length=100, null=True, default='')
-    address_dong = models.CharField(max_length=100, null=True, default='')
+    address = models.CharField(max_length=255)
     ph_num = models.CharField(max_length=20)
     nickname = models.CharField(max_length=30)
 

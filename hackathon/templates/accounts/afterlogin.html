@@ -17,7 +17,7 @@
           {% else % }
           <li><a href="{% url 'accounts:homepage'%}">홈</a></li>
           {% endif %}
-          <li><a href="{% url 'accounts:profile'%}">{{ user.username }}님</a></li>
+          <li>{{ user.username }}님</a></li>
           <li><a href="{% url 'accounts:logout'%}">로그아웃</a></li>
         </ul>
       </header>
@@ -25,6 +25,7 @@
         <a href="{% url 'accounts:board:board_list'%}">게시판</a>
       </section>
       <footer>
+        Cover template for <a href="https://twitter.com/mdo">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.
       </footer>
     </div>
     
