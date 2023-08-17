@@ -35,7 +35,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect("accounts:homepage")
+    return redirect("homepage_view")
 
 def find_id_view(request):
     if request.method == "POST":
