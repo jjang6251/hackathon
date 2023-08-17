@@ -127,6 +127,7 @@
 </head>
 <body class="text-center">
 
+
 <form class="form-signin" action="" method="POST">
     {% csrf_token %}
     <img class="mb-4" src="https://toss.im/assets/img/svg/toss_logo_horizontal.svg" alt="" width="200">
@@ -147,14 +148,12 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
 
-    <a href="#">아이디 / 비밀번호 찾기</a>
+    <a href="{% url 'accounts:find_id' %}">아이디 찾기</a>
+    <a href="{% url 'accounts:find_pw' %}">비밀번호 찾기</a>
     <a href="{% url 'accounts:signup' %}">회원가입</a>
 
-    <p>간편 로그인</p>
     <i class="fab fa-facebook fa-2x"></i>
     <i class="fab fa-instagram fa-2x"></i>
-
-    <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
 </form>
 
 <!-- Bootstrap JS -->
@@ -168,3 +167,16 @@
 
 </body>
 </html>
+
+<!-- 팝업 메시지 -->
+{% if messages %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            {% for message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+        });
+    </script>
+{% endif %}
+

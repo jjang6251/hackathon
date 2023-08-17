@@ -17,7 +17,6 @@ from django.contrib.auth import get_user_model
 
 
 
-from .forms import EditProfileForm
 
 def login_view(request):
     if request.method == "POST":
@@ -120,8 +119,8 @@ def signup_view(request):
 
         if password == password2:
             user =  User.objects.create_user(username, email, password)
-            user.last_name = lastname
             user.first_name = firstname
+            user.last_name = lastname
             user.gender = gender
             user.address_si = address_si
             user.address_gu = address_gu
@@ -170,66 +169,3 @@ def profile_view(request):
         'profile_info': profile_info,
      }
     return render(request, "accounts/profile_info.html", {"user": user})
-
-#프로필 수정 파트
-
-def edit_profile(request):
-    # 프로필 수정 템플릿을 렌더링합니다.
-    return render(request, "accounts/profile/edit.html")
-
-@login_required
-def edit_profile_view(request):
-    user = request.user
-    if request.method == "POST":
-        user.first_name = request.POST.get("first_name", "")
-        user.last_name = request.POST.get("last_name", "")
-        user.email = request.POST.get("email", "")
-        user.address = request.POST.get("address", "")
-        user.ph_num = request.POST.get("ph_num", "")
-        user.nickname = request.POST.get("nickname", "")
-        user.save()
-        return redirect("accounts:profile")
-    return render(request, "accounts/edit_profile.html", {"user": user})
-
-class EditProfileView(LoginRequiredMixin, FormView):
-    template_name = 'accounts/edit_profile.html'
-    form_class = EditProfileForm
-    success_url = reverse_lazy('accounts:profile')
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
-        return context
-
-    def get_initial(self):
-        initial = super().get_initial()
-        user = self.request.user
-        initial['first_name'] = user.first_name
-        initial['last_name'] = user.last_name
-        initial['email'] = user.email
-        initial['address'] = user.profile.address
-        initial['ph_num'] = user.profile.ph_num
-        initial['nickname'] = user.profile.nickname
-        return initial
-
-    def form_valid(self, form):
-        user = self.request.user
-        user.first_name = form.cleaned_data['first_name']
-        user.last_name = form.cleaned_data['last_name']
-        user.email = form.cleaned_data['email']
-        user.profile.address = form.cleaned_data['address']
-        user.profile.ph_num = form.cleaned_data['ph_num']
-        user.profile.nickname = form.cleaned_data['nickname']
-        user.save()
-
-        profile = user.profile
-        profile.phone_number = form.cleaned_data['phone_number']
-        profile.website = form.cleaned_data['website']
-        profile.save()
-
-        return super().form_valid(form)

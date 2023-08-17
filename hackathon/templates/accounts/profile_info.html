@@ -1,44 +1,125 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>프로필 페이지</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        html, body {
-            height: 100%;
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet"> 
+    <style type="text/css">
+        /* Common style */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #f5f5f5;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f2f2f2;
         }
-        .profile-container {
-            background-color: white;
-            padding: 20px;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.25);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.16);
         }
-        img {
-            max-width: 200px;
-            max-height: 200px;
-            border-radius: 100%;
-            overflow: hidden;
-            object-fit: cover;
-            object-position: center;
-            margin-bottom: 16px;
+        h1 {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size:1.2em;
+            color: #070707;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style:none;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        li {
+            margin-top: 10px;
+            margin-right: 20px;
+            list-style:none;
+            margin-bottom: none;
+            background-color: #f2f2f2;
+        }
+        
+        a {
+            display: inline-block;
+            background-color: #1772c3;
+            color: #fff;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.2s ease-out;
+        }
+        a:hover {
+            background-color: #1772c3;
+        }
+
+        /* Profile image style */
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            margin-right: 40px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.16);
+            overflow:hidden;
+        }
+        .profile-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* header 스타일 */
+    header {
+        background-color: transparent;  /* 배경색 투명화 */
+    }
+
+        /* Media query */
+        @media only screen and (max-width: 767px) {
+            .profile-image {
+                margin-right: 0;
+                margin-bottom:40px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container-sm profile-container">
-        <h1>회원 프로필 정보</h1>
-        <p>이름: {{ user.username }}</p>
-        <p>이메일 주소: {{ user.email }}</p>
-        <p>프로필 사진:</p><img src="{{ profile_info.profile_image.url }}" alt="프로필 사진"/>
+    <li>
+        <a href="{% url 'accounts:afterlogin'%}">
+            <p style="text-align:center;" >돌아가기</p>
+        </a>
+    </li>
+<div class="container">
+    <h1>회원 프로필 정보</h1>
+    <div>
+        <div class="profile-info">
+            <p><strong>아이디:</strong> {{ user.username }}</p>
+            <p><strong>이름:</strong> {{ user.first_name}}{{user.last_name }}</p>
+            <p><strong>닉네임:</strong> {{ user.nickname }}</p>
+            <p><strong>이메일:</strong> {{ user.email }}</p>
+            <p><strong>전화번호:</strong> {{ user.ph_num }}</p>
+            <p><strong>주소:</strong> {{ user.address_si }} {{ user.address_gu }} {{ user.address_dong }}</p>
+        </div>
     </div>
-    <!-- 회원 프로필 정보를 출력하는 코드 작성 -->
+</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
