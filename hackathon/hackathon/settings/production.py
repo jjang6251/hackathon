@@ -21,7 +21,7 @@ DATABASES = {
 STATICFILES_ROOT = BASE_DIR / 'static'
 
 
-LOG_FILE = '/home/ubuntu/liongram/log/django.log'
+LOG_FILE = '/home/ubuntu/hackathon/hackathon/log/django.log'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
