@@ -3,7 +3,7 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False #프로필 구현에서 수정 True->False
 
-ALLOWED_HOSTS = ['3.36.75.111']
+ALLOWED_HOSTS = ["dolshoi.shop", '3.36.75.111']
 
 
 INSTALLED_APPS = list(DJANGO_APPS) + list(PROJECT_APPS)
